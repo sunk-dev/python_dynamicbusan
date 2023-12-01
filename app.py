@@ -30,6 +30,17 @@ def main():
 
     fig.update_layout(title=f"{ticker} Stock {chart_type} Chart", xaxis_title="Date", yaxis_title="Price")
     st.plotly_chart(fig)
+    st.markdown("<hr>", unsafe_allow_html=True)	#구분선 추가
+   
+   #숫자를 넣을 수 있는 영역 생성
+    num_row = st.sidebar.number_input("Number of Rows", min_value= 1, max_value=len(data))
+    
+    #최근 날짜부터 결과값 보여줌
+    st.dataframe(data[-num_row:].reset_index().sort_index(ascending = False).set_index("Date"))
+        #방법1
+    value1 = st.sidebar.slider('숫자 선택(1)', 0, 100)
+    st.sidebar.write(value1)
+
     
     
 if __name__ == "__main__":
