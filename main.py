@@ -1,3 +1,4 @@
+
 import plotly.graph_objects as go
 import pandas as pd
 import streamlit as st
@@ -9,17 +10,27 @@ import folium
 # 사이드바, 검색조건 설정하기
 # 일단 조건별로 
 
+def filteringMap():
+    st.write(st.checkbox.__name__)
 
 st.sidebar.title("검색 조건 사이드바")
 ticker = st.sidebar.text_input("Enter a ticker (e. g. AAPL)", value = "AAPL")
 st.sidebar.markdown('Tickers Link : [All Stock Symbols](https://stockanalysis.com/stocks/)')
 start_date = st.sidebar.date_input("시작 날짜: ", value = pd.to_datetime("2023-01-01"))
 end_date = st.sidebar.date_input("종료 날짜: ", value = pd.to_datetime("2023-07-28"))
-is_wheelchiar_available=st.sidebar.checkbox('휠체어 이동 가능' ,on_change='')
-is_brailleroad_available=st.sidebar.checkbox('점자도로이용가능' ,on_change='')
-is_storage_available=st.sidebar.checkbox('물품보관함 이용가능' ,on_change='')
-is_nursingroom_available=st.sidebar.checkbox('수유실 이용 가능' ,on_change='')
-is_infantstand_available=st.sidebar.checkbox('유아거치대 이용 가능' ,on_change='')
+
+options = st.multiselect(
+    '검색조건',
+    ['Green', 'Yellow', 'Red', 'Blue'],
+    ['Yellow', 'Red'])
+
+
+
+is_wheelchiar_available=st.sidebar.checkbox('휠체어 이동 가능' ,on_change=filteringMap,key='휠체어이동가능여부')
+is_brailleroad_available=st.sidebar.checkbox('점자도로이용가능' ,on_change=filteringMap)
+is_storage_available=st.sidebar.checkbox('물품보관함 이용가능' ,on_change=filteringMap)
+is_nursingroom_available=st.sidebar.checkbox('수유실 이용 가능' ,on_change=filteringMap)
+is_infantstand_available=st.sidebar.checkbox('유아거치대 이용 가능' ,on_change=filteringMap)
 
 
 
