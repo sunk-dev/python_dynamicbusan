@@ -5,11 +5,30 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import folium
 
+
+# 사이드바, 검색조건 설정하기
+# 일단 조건별로 
+
+
+st.sidebar.title("검색 조건 사이드바")
+ticker = st.sidebar.text_input("Enter a ticker (e. g. AAPL)", value = "AAPL")
+st.sidebar.markdown('Tickers Link : [All Stock Symbols](https://stockanalysis.com/stocks/)')
+start_date = st.sidebar.date_input("시작 날짜: ", value = pd.to_datetime("2023-01-01"))
+end_date = st.sidebar.date_input("종료 날짜: ", value = pd.to_datetime("2023-07-28"))
+is_wheelchiar_available=st.sidebar.checkbox('휠체어 이동 가능' ,on_change='')
+is_brailleroad_available=st.sidebar.checkbox('점자도로이용가능' ,on_change='')
+is_storage_available=st.sidebar.checkbox('물품보관함 이용가능' ,on_change='')
+is_nursingroom_available=st.sidebar.checkbox('수유실 이용 가능' ,on_change='')
+is_infantstand_available=st.sidebar.checkbox('유아거치대 이용 가능' ,on_change='')
+
+
+
+
+# csv 파일, 지도 업로드 부분
  
-uploaded_file = st.file_uploader("CSV 파일을 선택하세요", type='csv')
-if uploaded_file is not None:
-    data = pd.read_csv(uploaded_file)
-    st.write(data)
+
+data = pd.read_csv('./BusanHotelFirst.csv')
+st.write(data)
 
 map=folium.Map(location=[data['위도'].mean(),data['경도'].mean()], zoom_start=10)
 for n in data.index:
