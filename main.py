@@ -42,20 +42,26 @@ options_value={
 
 state_options=data['시군구명'].unique()
 town_options=data['읍면동명'].unique()
-state_name_options=st.sidebar.multiselect(
+state_name_options=st.sidebar.selectbox(
     '시군구명',
     state_options
 
 )
 
-town_name_options=st.sidebar.multiselect(
-    '읍면동명',
-    town_options
-
-)
 
 
+# 시군구별 읍면동명 데이터
+town_groupby_state_data=data.groupby('시군구명')['읍면동명'].unique()
 
+
+st.write(town_groupby_state_data)
+
+if(state_name_options is not None):
+     town_options=town_groupby_state_data[state_name_options]
+     town_name_options=st.sidebar.multiselect(
+     '읍면동명',
+     town_options
+     )
 
 
 
