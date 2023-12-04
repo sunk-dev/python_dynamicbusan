@@ -64,7 +64,7 @@ if(state_name_options is not None):
      )
 
 
-show_data_count_bar=st.sidebar.slider('추출개수')
+show_data_count_bar=st.sidebar.slider('추출개수',min_value=1)
 save_excel_btn=st.sidebar.button('파일저장하기')
 
 
@@ -84,6 +84,13 @@ if (options is not None):
 
 if(state_name_options is not None):
     filter_data=filter_data[filter_data['시군구명']==state_name_options]
+
+
+# 읍면동별 지도 필터링
+if (town_name_options is not None):
+    filter_data=filter_data[filter_data['읍면동명'].isin(town_name_options)]
+
+#df[df['country'].isin(country_list)]
 
 
 map=folium.Map(location=[filter_data['위도'].mean(),filter_data['경도'].mean()], zoom_start=10)
