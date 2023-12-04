@@ -5,6 +5,7 @@ import streamlit as st
 import yfinance as yf
 import matplotlib.pyplot as plt
 import folium
+import openpyxl
 # 권한주기
 
 
