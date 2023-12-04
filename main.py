@@ -56,9 +56,7 @@ def save_data():
     for i in town_name_options:
         file_name+=i
     st.write(file_name)
-    filter_data.to_excel(
-        excel_writer='C:\\'
-        f'{file_name}.xlsx')
+    filter_data.to_excel( f'{file_name}.xlsx')
 
 
 # 시군구별 읍면동명 데이터
