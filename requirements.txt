@@ -1,0 +1,7 @@
+
+plotly
+pandas
+streamlit
+yfinance
+matplotlib
+folium

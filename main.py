@@ -8,7 +8,7 @@ import folium
 import openpyxl
 import os
 # 권한주기
-os.chmod('C:\\',0o700)
+
 
 # csv 파일, 지도 업로드 부분
 data = pd.read_csv('./BusanHotelFirst.csv')
