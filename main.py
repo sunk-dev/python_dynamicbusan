@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 import folium
 import openpyxl
 # 권한주기
-
+from io import BytesIO
 
 # csv 파일, 지도 업로드 부분
 data = pd.read_csv('./BusanHotelFirst.csv')
 st.write(data)
-
+filter_data=data
 # 사이드바, 검색조건 설정하기
 # 일단 조건별로 
 
@@ -51,6 +51,30 @@ state_name_options=st.sidebar.selectbox(
 
 )
 
+
+
+# 다운 받는 방법찯음
+def to_excel(df):
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, index=False, sheet_name='Sheet1')
+    workbook = writer.book
+    worksheet = writer.sheets['Sheet1']
+    format1 = workbook.add_format({'num_format': '0.00'}) 
+    worksheet.set_column('A:A', None, format1)  
+    writer.save()
+    processed_data = output.getvalue()
+    return processed_data
+df_xlsx = to_excel(filter_data)
+st.sidebar.download_button(label='📥 Download Current Result',
+                                data=df_xlsx ,
+                                file_name= 'df_test.xlsx')
+
+
+
+
+
+
 def save_data():
     st.write('여기로옴..')
 
@@ -83,7 +107,7 @@ save_excel_btn=st.sidebar.button('파일저장하기',on_click=save_data)
 
 # 검색조건이 있으면 그에 대응하는 칼럼으로 조건식 졸려서 map에 적용
 # data->원본  filter_data -> data에 조건식 들어간거 filter data를 집어 넣기
-filter_data=data
+
 st.write(filter_data)
 if (options is not None):
 
