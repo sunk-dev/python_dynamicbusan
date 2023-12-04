@@ -7,6 +7,10 @@ import matplotlib.pyplot as plt
 import folium
 
 
+# csv 파일, 지도 업로드 부분
+data = pd.read_csv('./BusanHotelFirst.csv')
+st.write(data)
+
 # 사이드바, 검색조건 설정하기
 # 일단 조건별로 
 
@@ -19,10 +23,11 @@ st.sidebar.markdown('Tickers Link : [All Stock Symbols](https://stockanalysis.co
 start_date = st.sidebar.date_input("시작 날짜: ", value = pd.to_datetime("2023-01-01"))
 end_date = st.sidebar.date_input("종료 날짜: ", value = pd.to_datetime("2023-07-28"))
 
-options = st.multiselect(
+options = st.sidebar.multiselect(
     '검색조건',
     ['휠체어 이동 가능', '점자도로이용가능', '물품보관함 이용가능', '수유실 이용 가능'])
 st.write(options)
+
 
 # 검색조건별로 컬럼 엮는 딕셔너리
 
@@ -35,26 +40,25 @@ options_value={
 }
 
 
+state_options=data['시군구명'].unique()
+town_options=data['읍면동명'].unique()
+state_name_options=st.sidebar.multiselect(
+    '시군구명',
+    state_options
+
+)
+
+town_name_options=st.sidebar.multiselect(
+    '읍면동명',
+    town_options
+
+)
 
 
 
 
 
 
-is_wheelchiar_available=st.sidebar.checkbox('휠체어 이동 가능' ,on_change=filteringMap,key='휠체어이동가능여부')
-is_brailleroad_available=st.sidebar.checkbox('점자도로이용가능' ,on_change=filteringMap)
-is_storage_available=st.sidebar.checkbox('물품보관함 이용가능' ,on_change=filteringMap)
-is_nursingroom_available=st.sidebar.checkbox('수유실 이용 가능' ,on_change=filteringMap)
-is_infantstand_available=st.sidebar.checkbox('유아거치대 이용 가능' ,on_change=filteringMap)
-
-
-
-
-# csv 파일, 지도 업로드 부분
- 
-
-data = pd.read_csv('./BusanHotelFirst.csv')
-st.write(data)
 
 
 
