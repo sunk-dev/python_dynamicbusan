@@ -16,8 +16,7 @@ st.write(data)
 filter_data=data
 # 사이드바, 검색조건 설정하기
 # 일단 조건별로 
-if(len(filter_data)==0):
-    filter_data=data
+
 
 def filteringMap():
     st.write(st.checkbox.__name__)
@@ -127,6 +126,8 @@ df_xlsx = to_excel(filter_data)
 st.sidebar.download_button(label='📥 Download Current Result',
                                 data=df_xlsx ,
                                 file_name= 'df_test.xlsx')
+if(len(filter_data)==0):
+    filter_data=data
 
 map=folium.Map(location=[filter_data['위도'].mean(),filter_data['경도'].mean()], zoom_start=10)
 for n in filter_data.index:
