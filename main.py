@@ -54,26 +54,6 @@ state_name_options=st.sidebar.selectbox(
 
 
 
-# 다운 받는 방법찯음
-def to_excel(df):
-    output = BytesIO()
-    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    df.to_excel(writer, index=False, sheet_name='Sheet1')
-    workbook = writer.book
-    worksheet = writer.sheets['Sheet1']
-    format1 = workbook.add_format({'num_format': '0.00'}) 
-    worksheet.set_column('A:A', None, format1)
-    writer.close()
-    processed_data = output.getvalue()
-    return processed_data
-df_xlsx = to_excel(filter_data)
-st.sidebar.download_button(label='📥 Download Current Result',
-                                data=df_xlsx ,
-                                file_name= 'df_test.xlsx')
-
-
-
-
 
 
 def save_data():
@@ -102,7 +82,22 @@ if(state_name_options is not None):
 
 
 show_data_count_bar=st.sidebar.slider('추출개수',min_value=1)
-save_excel_btn=st.sidebar.button('파일저장하기',on_click=save_data)
+# 다운 받는 방법찯음
+def to_excel(df):
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, index=False, sheet_name='Sheet1')
+    workbook = writer.book
+    worksheet = writer.sheets['Sheet1']
+    format1 = workbook.add_format({'num_format': '0.00'}) 
+    worksheet.set_column('A:A', None, format1)
+    writer.close()
+    processed_data = output.getvalue()
+    return processed_data
+df_xlsx = to_excel(filter_data)
+st.sidebar.download_button(label='📥 Download Current Result',
+                                data=df_xlsx ,
+                                file_name= 'df_test.xlsx')
 
 
 
