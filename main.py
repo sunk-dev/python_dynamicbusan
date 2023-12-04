@@ -5,7 +5,10 @@ import streamlit as st
 import yfinance as yf
 import matplotlib.pyplot as plt
 import folium
-
+import openpyxl
+import os
+# 권한주기
+os.chmod('C:\\',0o700)
 
 # csv 파일, 지도 업로드 부분
 data = pd.read_csv('./BusanHotelFirst.csv')
@@ -49,6 +52,15 @@ state_name_options=st.sidebar.selectbox(
 
 )
 
+def save_data():
+
+    file_name=state_name_options+'_'
+    for i in town_name_options:
+        file_name+=i
+    st.write(file_name)
+    filter_data.to_excel(
+        excel_writer='C:\\'
+        f'{file_name}.xlsx')
 
 
 # 시군구별 읍면동명 데이터
@@ -65,13 +77,7 @@ if(state_name_options is not None):
 
 
 show_data_count_bar=st.sidebar.slider('추출개수',min_value=1)
-save_excel_btn=st.sidebar.button('파일저장하기')
-
-
-
-
-
-
+save_excel_btn=st.sidebar.button('파일저장하기',on_click=save_data)
 
 
 
