@@ -52,6 +52,7 @@ state_name_options=st.sidebar.selectbox(
 )
 
 def save_data():
+    st.write('여기로옴..')
 
     file_name=state_name_options+'_'
     for i in town_name_options:
