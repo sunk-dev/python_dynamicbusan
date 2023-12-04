@@ -62,8 +62,7 @@ def to_excel(df):
     workbook = writer.book
     worksheet = writer.sheets['Sheet1']
     format1 = workbook.add_format({'num_format': '0.00'}) 
-    worksheet.set_column('A:A', None, format1)  
-    writer.save()
+    worksheet.set_column('A:A', None, format1) 
     processed_data = output.getvalue()
     return processed_data
 df_xlsx = to_excel(filter_data)
