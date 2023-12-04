@@ -6,6 +6,7 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import folium
 import openpyxl
+from pyxlsb import open_workbook as open_xlsb
 # 권한주기
 from io import BytesIO
 
