@@ -23,6 +23,7 @@ st.sidebar.markdown('Tickers Link : [All Stock Symbols](https://stockanalysis.co
 start_date = st.sidebar.date_input("시작 날짜: ", value = pd.to_datetime("2023-01-01"))
 end_date = st.sidebar.date_input("종료 날짜: ", value = pd.to_datetime("2023-07-28"))
 
+
 options = st.sidebar.multiselect(
     '검색조건',
     ['휠체어 이동 가능', '점자도로이용가능', '물품보관함 이용가능', '수유실 이용 가능'])
@@ -63,6 +64,8 @@ if(state_name_options is not None):
      )
 
 
+show_data_count_bar=st.sidebar.slider('추출개수')
+save_excel_btn=st.sidebar.button('파일저장하기')
 
 
 
@@ -77,6 +80,7 @@ if (options is not None):
         col=options_value[i]
         filter_data=filter_data[filter_data[col]=='Y']
 
+# 시군구별 지도 필터링
 
 if(state_name_options is not None):
     filter_data=filter_data[filter_data['시군구명']==state_name_options]
@@ -95,4 +99,13 @@ for n in filter_data.index:
     ).add_to(map) # 마커를 지도에 추가하기
 st.components.v1.html(map._repr_html_(), width=800, height=600)
 
-st.write(filter_data)
+
+
+
+# 필터링 끝난뒤에 현재 위경도 거리에서 거리순으로 나열하는거 필터링
+
+data_count=len(filter_data)
+
+if show_data_count_bar>data_count:
+    show_data_count_bar=data_count
+st.write(filter_data.head(show_data_count_bar))
