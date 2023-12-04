@@ -82,22 +82,7 @@ if(state_name_options is not None):
 
 
 show_data_count_bar=st.sidebar.slider('추출개수',min_value=1)
-# 다운 받는 방법찯음
-def to_excel(df):
-    output = BytesIO()
-    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    df.to_excel(writer, index=False, sheet_name='Sheet1')
-    workbook = writer.book
-    worksheet = writer.sheets['Sheet1']
-    format1 = workbook.add_format({'num_format': '0.00'}) 
-    worksheet.set_column('A:A', None, format1)
-    writer.close()
-    processed_data = output.getvalue()
-    return processed_data
-df_xlsx = to_excel(filter_data)
-st.sidebar.download_button(label='📥 Download Current Result',
-                                data=df_xlsx ,
-                                file_name= 'df_test.xlsx')
+
 
 
 
@@ -123,6 +108,23 @@ if (len(town_name_options)!=0):
 
 #df[df['country'].isin(country_list)]
 
+
+# 다운 받는 방법찯음
+def to_excel(df):
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, index=False, sheet_name='Sheet1')
+    workbook = writer.book
+    worksheet = writer.sheets['Sheet1']
+    format1 = workbook.add_format({'num_format': '0.00'}) 
+    worksheet.set_column('A:A', None, format1)
+    writer.close()
+    processed_data = output.getvalue()
+    return processed_data
+df_xlsx = to_excel(filter_data)
+st.sidebar.download_button(label='📥 Download Current Result',
+                                data=df_xlsx ,
+                                file_name= 'df_test.xlsx')
 
 map=folium.Map(location=[filter_data['위도'].mean(),filter_data['경도'].mean()], zoom_start=10)
 for n in filter_data.index:
