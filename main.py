@@ -16,6 +16,8 @@ st.write(data)
 filter_data=data
 # 사이드바, 검색조건 설정하기
 # 일단 조건별로 
+if(len(filter_data)==0):
+    filter_data=data
 
 def filteringMap():
     st.write(st.checkbox.__name__)
