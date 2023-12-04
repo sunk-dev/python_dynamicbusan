@@ -53,7 +53,6 @@ state_name_options=st.sidebar.selectbox(
 # 시군구별 읍면동명 데이터
 town_groupby_state_data=data.groupby('시군구명')['읍면동명'].unique()
 
-
 st.write(town_groupby_state_data)
 
 if(state_name_options is not None):
@@ -79,7 +78,8 @@ if (options is not None):
         filter_data=filter_data[filter_data[col]=='Y']
 
 
-st.write(filter_data)
+if(state_name_options is not None):
+    filter_data=filter_data[filter_data['시군구명']==state_name_options]
 
 
 map=folium.Map(location=[filter_data['위도'].mean(),filter_data['경도'].mean()], zoom_start=10)
