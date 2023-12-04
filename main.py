@@ -94,3 +94,5 @@ for n in filter_data.index:
         icon=folium.Icon(color='red', icon='plus', prefix='fa')
     ).add_to(map) # 마커를 지도에 추가하기
 st.components.v1.html(map._repr_html_(), width=800, height=600)
+
+st.write(filter_data)
