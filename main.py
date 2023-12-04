@@ -70,6 +70,11 @@ save_excel_btn=st.sidebar.button('파일저장하기')
 
 
 
+
+
+
+
+
 # 검색조건이 있으면 그에 대응하는 칼럼으로 조건식 졸려서 map에 적용
 # data->원본  filter_data -> data에 조건식 들어간거 filter data를 집어 넣기
 filter_data=data
@@ -87,7 +92,7 @@ if(state_name_options is not None):
 
 
 # 읍면동별 지도 필터링
-if (town_name_options is not None):
+if (len(town_name_options)!=0):
     filter_data=filter_data[filter_data['읍면동명'].isin(town_name_options)]
 
 #df[df['country'].isin(country_list)]
@@ -116,3 +121,7 @@ data_count=len(filter_data)
 if show_data_count_bar>data_count:
     show_data_count_bar=data_count
 st.write(filter_data.head(show_data_count_bar))
+
+
+# last_execl_save_data
+
