@@ -12,7 +12,7 @@ from io import BytesIO
 
 # csv 파일, 지도 업로드 부분
 data = pd.read_csv('./BusanHotelFirst.csv')
-st.write(data)
+#st.write(data)
 filter_data=data
 last_data=filter_data
 down_data=last_data
@@ -53,7 +53,7 @@ end_date = st.sidebar.date_input("종료 날짜: ", value = pd.to_datetime("2023
 options = st.sidebar.multiselect(
     '검색조건',
     ['휠체어 이동 가능', '점자도로이용가능', '물품보관함 이용가능', '수유실 이용 가능'])
-st.write(options)
+#st.write(options)
 
 
 # 검색조건별로 컬럼 엮는 딕셔너리
@@ -94,7 +94,7 @@ def save_data():
 # 시군구별 읍면동명 데이터
 town_groupby_state_data=data.groupby('시군구명')['읍면동명'].unique()
 
-st.write(town_groupby_state_data)
+#st.write(town_groupby_state_data)
 
 if(state_name_options is not None):
      town_options=town_groupby_state_data[state_name_options]
