@@ -112,7 +112,7 @@ show_data_count_bar=st.sidebar.slider('추출개수',min_value=1)
 # 검색조건이 있으면 그에 대응하는 칼럼으로 조건식 졸려서 map에 적용
 # data->원본  filter_data -> data에 조건식 들어간거 filter data를 집어 넣기
 
-st.write(filter_data)
+#st.write(filter_data)
 if (options is not None):
 
     for i in options:
