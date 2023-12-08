@@ -14,6 +14,8 @@ from io import BytesIO
 data = pd.read_csv('./BusanHotelFirst.csv')
 st.write(data)
 filter_data=data
+last_data=filter_data
+down_data=last_data
 # 사이드바, 검색조건 설정하기
 # 일단 조건별로 
 
@@ -122,7 +124,7 @@ def to_excel(df):
     writer.close()
     processed_data = output.getvalue()
     return processed_data
-df_xlsx = to_excel(filter_data)
+df_xlsx = to_excel(down_data)
 st.sidebar.download_button(label='📥 Download Current Result',
                                 data=df_xlsx ,
                                 file_name= 'df_test.xlsx')
@@ -156,3 +158,14 @@ st.write(filter_data.head(show_data_count_bar))
 
 # last_execl_save_data
 
+#도로명주소
+adress_roadname=last_data['도로명']+last_data['도로명상세']
+adress_roadname.fillna('',inplace=True)
+#읍면동주소
+adress=last_data['시도명']+last_data['시군구명']+last_data['읍면동명']+last_data['번지']
+adress.fillna('',inplace=True)
+
+last_data['일반주소']=adress
+last_data['도로명주소']=adress_roadname
+down_data=last_data[['업체명','일반주소','도로명주소','전화번호','홈페이지주소']]
+down_data.fillna('',inplace=True)
