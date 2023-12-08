@@ -155,7 +155,9 @@ map=folium.Map(location=[filter_data['위도'].mean(),filter_data['경도'].mean
 for n in filter_data.index:
     name=filter_data.loc[n,'업체명'] # n번 행의 상호명
     address=filter_data.loc[n,'도로명'] # n번 행의 도로명주소
-    popup=f'<pre>{name}-{address}<pre>' # 상호명과 도로명주소 이어붙이기
+   
+    
+    popup=folium.Popup(f'<i>{name}-{address}</i>', max_width=600, max_height=600) # 상호명과 도로명주소 이어붙이기
     location=[filter_data.loc[n,'위도'],filter_data.loc[n,'경도']] # n번 행의 위도, 경도
     folium.Marker(
         location=location, # 위도 경도 위치에
