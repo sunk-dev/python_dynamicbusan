@@ -12,6 +12,14 @@ from pyxlsb import open_workbook as open_xlsb
 from io import BytesIO
 from xlsxwriter import Workbook
 
+st.title('Dynamic Busan ☀️')
+st.subheader('원하는 조건의 부산 숙박업소를 쉽게 검색해봐요! 😎', anchor=None, help=None, divider=False)
+
+info=st.info('데이터를 검색합니다',  icon='🔍')
+#if ((options is not None) or (state_name_options is not None) or (town_name_options is not None )):
+#    info.info(f'{options} 포함 , 시군구명: {state_name_options} 읍면동명"{town_name_options} 에 일치하는 결과를 로딩합니다')
+
+
 # csv 파일, 지도 업로드 부분
 data = pd.read_csv('./BusanHotelFirst.csv')
 #st.write(data)
@@ -46,11 +54,10 @@ def filteringMap():
     st.write(st.checkbox.__name__)
 
 st.sidebar.title("검색 조건 사이드바")
-ticker = st.sidebar.text_input("Enter a ticker (e. g. AAPL)", value = "AAPL")
 st.sidebar.markdown('Tickers Link : [All Stock Symbols](https://stockanalysis.com/stocks/)')
 start_date = st.sidebar.date_input("시작 날짜: ", value = pd.to_datetime("2023-01-01"))
 end_date = st.sidebar.date_input("종료 날짜: ", value = pd.to_datetime("2023-07-28"))
-
+ticker = st.sidebar.text_input("제작자", value = "장선경")
 
 options = st.sidebar.multiselect(
     '검색조건',
@@ -112,7 +119,7 @@ if(state_name_options is not None):
      )
 
 
-show_data_count_bar=st.sidebar.slider('추출개수',min_value=1)
+show_data_count_bar=st.sidebar.slider('추출개수',min_value=5)
 
 
 
@@ -130,7 +137,10 @@ if (options is not None):
 # 시군구별 지도 필터링
 
 if(state_name_options is not None):
-    filter_data=filter_data[filter_data['시군구명']==state_name_options]
+    if state_name_options=='전체':
+        filter_data=filter_data
+
+    else:filter_data=filter_data[filter_data['시군구명']==state_name_options]
 
 
 # 읍면동별 지도 필터링
@@ -184,6 +194,7 @@ data_count=len(filter_data)
 if show_data_count_bar>data_count:
     show_data_count_bar=data_count
 st.write(filter_data.head(show_data_count_bar))
+
 
 
 # last_execl_save_data
