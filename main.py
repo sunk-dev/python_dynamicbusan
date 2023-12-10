@@ -1,6 +1,7 @@
 
 import plotly.graph_objects as go
 import pandas as pd
+import numpy as np
 import streamlit as st
 import yfinance as yf
 import matplotlib.pyplot as plt
@@ -9,6 +10,7 @@ import openpyxl
 from pyxlsb import open_workbook as open_xlsb
 # 권한주기
 from io import BytesIO
+from xlsxwriter import Workbook
 
 # csv 파일, 지도 업로드 부분
 data = pd.read_csv('./BusanHotelFirst.csv')
@@ -68,7 +70,9 @@ options_value={
 
 
 state_options=data['시군구명'].unique()
+state_options=np.insert(state_options,0,'전체')
 town_options=data['읍면동명'].unique()
+#town_options=np.insert(town_options,0,'전체')
 state_name_options=st.sidebar.selectbox(
     '시군구명',
     state_options
@@ -92,13 +96,17 @@ def save_data():
 
 
 # 시군구별 읍면동명 데이터
+
+
 town_groupby_state_data=data.groupby('시군구명')['읍면동명'].unique()
 
 #st.write(town_groupby_state_data)
 
 if(state_name_options is not None):
-     town_options=town_groupby_state_data[state_name_options]
-     town_name_options=st.sidebar.multiselect(
+    if(state_name_options=='전체'):
+        town_options=data['읍면동명'].unique()
+    else:town_options=town_groupby_state_data[state_name_options]
+    town_name_options=st.sidebar.multiselect(
      '읍면동명',
      town_options
      )
