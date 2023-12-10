@@ -54,13 +54,9 @@ def filteringMap():
     st.write(st.checkbox.__name__)
 
 st.sidebar.title("검색 조건 사이드바")
-st.sidebar.markdown('Tickers Link : [All Stock Symbols](https://stockanalysis.com/stocks/)')
-start_date = st.sidebar.date_input("시작 날짜: ", value = pd.to_datetime("2023-01-01"))
-end_date = st.sidebar.date_input("종료 날짜: ", value = pd.to_datetime("2023-07-28"))
-ticker = st.sidebar.text_input("제작자", value = "장선경")
 
 options = st.sidebar.multiselect(
-    '검색조건',
+    '편의시설',
     ['휠체어 이동 가능', '점자도로이용가능', '물품보관함 이용가능', '수유실 이용 가능'])
 #st.write(options)
 
@@ -208,5 +204,9 @@ st.write(filter_data.head(show_data_count_bar))
 
 
 # last_execl_save_data
+
+st.sidebar.header('More info')
+st.sidebar.subheader('✉️ sunkyoung.dev@gmail.com')
+st.sidebar.subheader('👩🏻‍💻 GitHub : sunk-dev')
 
 
