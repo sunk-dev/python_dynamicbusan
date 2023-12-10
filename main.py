@@ -15,7 +15,7 @@ from xlsxwriter import Workbook
 st.title('Dynamic Busan ☀️')
 st.subheader('원하는 조건의 부산 숙박업소를 쉽게 검색해봐요! 😎', anchor=None, help=None, divider=False)
 
-info=st.info('데이터를 검색합니다',  icon='🔍')
+info=st.info('사이드 바에서 원하는 조건을 입력하세요!',  icon='🔍')
 #if ((options is not None) or (state_name_options is not None) or (town_name_options is not None )):
 #    info.info(f'{options} 포함 , 시군구명: {state_name_options} 읍면동명"{town_name_options} 에 일치하는 결과를 로딩합니다')
 
@@ -186,8 +186,18 @@ st.components.v1.html(map._repr_html_(), width=800, height=600)
 
 
 
+#
+if options is None:
+    options=''
+if state_name_options is None:
+    state_name_options=''
+if town_name_options is None:
+    town_name_options=''
+st.info(f'📜 {options} 포함 , {state_name_options} ,{town_name_options} 위치의 숙박업소 리스트를 로딩합니다.!')
+
 
 # 필터링 끝난뒤에 현재 위경도 거리에서 거리순으로 나열하는거 필터링
+
 
 data_count=len(filter_data)
 
