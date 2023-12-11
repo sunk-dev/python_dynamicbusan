@@ -184,12 +184,7 @@ st.components.v1.html(map._repr_html_(), width=800, height=600)
 
 
 #
-if options is None:
-    options=''
-if state_name_options is None:
-    state_name_options=''
-if town_name_options is None:
-    town_name_options=''
+
 
 
 
@@ -211,7 +206,19 @@ else:
     if show_data_count_bar>data_count:
         show_data_count_bar=data_count
 
-st.info(f'📜 {options} 포함 , {state_name_options} ,{town_name_options} 위치의 숙박업소  {show_data_count_bar}개 의 정보를 로딩합니다.!')
+# 정보 포매팅
+if len(options)==0:
+   options_str=''
+else:
+    options_str=f'{options}'+'포함,'
+if len(state_name_options)==0:
+    state_name_options=''
+if len(town_name_options)==0:
+    town_name_options=''
+
+
+options_str=f'{options}'+'포함,'
+st.info(f'📜 {options_str} {state_name_options} ,{town_name_options} 위치의 숙박업소  {show_data_count_bar}개 의 정보를 로딩합니다.!')
 st.write(filter_data.head(show_data_count_bar))
 
 df_xlsx = to_excel(process_down_data(filter_data.head(show_data_count_bar)))
