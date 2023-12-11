@@ -85,7 +85,7 @@ state_name_options=st.sidebar.selectbox(
 
 
 
-
+# 로컬 다운시
 def save_data():
     st.write('여기로옴..')
 
@@ -113,6 +113,7 @@ if(state_name_options is not None):
      '읍면동명',
      town_options
      )
+
 
 
 show_data_count_bar=st.sidebar.slider('추출개수',min_value=5)
@@ -146,7 +147,7 @@ if (len(town_name_options)!=0):
 #df[df['country'].isin(country_list)]
 
 
-# 다운 받는 방법찯음
+# 엑셀파일로 다운받는 
 def to_excel(df):
     output = BytesIO()
     writer = pd.ExcelWriter(output, engine='xlsxwriter')
@@ -158,20 +159,20 @@ def to_excel(df):
     writer.close()
     processed_data = output.getvalue()
     return processed_data
-df_xlsx = to_excel(process_down_data(filter_data))
-st.sidebar.download_button(label='📥 Download Current Result',
-                                data=df_xlsx ,
-                                file_name= 'df_test.xlsx')
+#df_xlsx = to_excel(process_down_data(filter_data))
+
 if(len(filter_data)==0):
     filter_data=data
 
 map=folium.Map(location=[filter_data['위도'].mean(),filter_data['경도'].mean()], zoom_start=10)
+
 for n in filter_data.index:
     name=filter_data.loc[n,'업체명'] # n번 행의 상호명
     address=filter_data.loc[n,'도로명'] # n번 행의 도로명주소
+    address_spc=filter_data.loc[n,'도로명상세']
    
     
-    popup=folium.Popup(f'<i>{name}-{address}</i>', max_width=600, max_height=600) # 상호명과 도로명주소 이어붙이기
+    popup=folium.Popup(f'<i>{name}-{address}{address_spc}</i>', max_width=600, max_height=600) # 상호명과 도로명주소 이어붙이기
     location=[filter_data.loc[n,'위도'],filter_data.loc[n,'경도']] # n번 행의 위도, 경도
     folium.Marker(
         location=location, # 위도 경도 위치에
@@ -189,21 +190,40 @@ if state_name_options is None:
     state_name_options=''
 if town_name_options is None:
     town_name_options=''
-st.info(f'📜 {options} 포함 , {state_name_options} ,{town_name_options} 위치의 숙박업소 리스트를 로딩합니다.!')
+
+
+
 
 
 # 필터링 끝난뒤에 현재 위경도 거리에서 거리순으로 나열하는거 필터링
 
-
 data_count=len(filter_data)
 
-if show_data_count_bar>data_count:
+
+
+    
+
+
+on=st.sidebar.toggle('전체보기')
+if on:
     show_data_count_bar=data_count
+else:
+    if show_data_count_bar>data_count:
+        show_data_count_bar=data_count
+
+st.info(f'📜 {options} 포함 , {state_name_options} ,{town_name_options} 위치의 숙박업소  {show_data_count_bar}개 의 정보를 로딩합니다.!')
 st.write(filter_data.head(show_data_count_bar))
 
+df_xlsx = to_excel(process_down_data(filter_data.head(show_data_count_bar)))
 
+st.sidebar.download_button(label='📥 Download Current Result',
+                                data=df_xlsx ,
+                                file_name= 'df_test.xlsx')
 
 # last_execl_save_data
+
+
+# 마지막 사이드바
 
 st.sidebar.header('More info')
 st.sidebar.subheader('✉️ sunkyoung.dev@gmail.com')
