@@ -232,7 +232,7 @@ st.sidebar.download_button(label='📥 Download Current Result',
 
 
 # 마지막 사이드바
-st.sidebar.slider('🤖QnA Bot https://ai-poet-seon.streamlit.app/ ')
+st.sidebar.subheader('🤖QnA Bot https://ai-poet-seon.streamlit.app/ ')
 st.sidebar.header('More info')
 st.sidebar.subheader('✉️ sunkyoung.dev@gmail.com')
 st.sidebar.subheader('👩🏻‍💻 GitHub : sunk-dev')
