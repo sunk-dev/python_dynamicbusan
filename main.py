@@ -208,6 +208,7 @@ else:
 
 # 정보 포매팅
 if len(options)==0:
+   options=''
    options_str=''
 else:
     options_str=f'{options}'+'포함,'
