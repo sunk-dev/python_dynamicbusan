@@ -5,6 +5,8 @@
 ## **"편의에 맞게 검색하고, 지도에서 확인하자!"**
 
 [웹 사이트](https://dataanlysic-seon.streamlit.app/)
+![image](https://github.com/sunk-dev/dataanlysic/assets/103514806/6817dfff-7aa6-4b45-a60b-2b18cb680525)
+
 
 - 이용 데이터 자료
   
